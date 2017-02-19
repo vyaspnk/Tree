@@ -84,11 +84,88 @@ public:
         }
         return curr;
     }
+    void printBFSBTree(Node* root){
+        if(!root)
+            return;
+        Node *curr = broot;
+        deque<Node*> bfsq;
+        bfsq.push_back(curr);
+        while(bfsq.size()){
+            int nodecount = (int)bfsq.size();
+            while(nodecount--){
+                curr = bfsq.front();
+                bfsq.pop_front();
+                cout << curr->val << " ";
+                if(curr->left)
+                    bfsq.push_back(curr->left);
+                if(curr->right)
+                    bfsq.push_back(curr->right);
+            }
+        }
+        
+    }
+    void printInorderTraversalBTree(Node *root) {
+        if(!broot)
+            return;
+        vector<Node *> stack;
+        Node *curr = broot;
+        while(1) {
+            while(curr){
+                stack.push_back(curr);
+                curr = curr->left;
+            }
+            if(!stack.size())
+                break;
+            curr = stack.back();
+            stack.pop_back();
+            cout << curr->val << " ";
+            curr = curr->right;
+        }
+        cout << endl;
+    }
+    void printPreorderTraversalBTree(Node *root) {
+        if(!broot)
+            return;
+        vector<Node *> stack;
+        Node *curr = broot;
+        while(1) {
+            while(curr){
+                cout << curr->val << " ";
+                if(curr->right)
+                    stack.push_back(curr->right);
+                curr = curr->left;
+            }
+            if(!stack.size())
+                break;
+            curr = stack.back();
+            stack.pop_back();
+        }
+        cout << endl;
+    }
     vector<Node *> pathToNodeInBTree(int val){
         vector<Node*> path;
+        vector<Node*> stack;
         if(!broot)
             return path;
-        
+        Node *curr = broot;
+        while(1){
+            while(curr){
+                path.push_back(curr);
+                if(curr->val==val)
+                    return path;
+                if(curr->right)
+                    stack.push_back(curr->right);
+                curr = curr->left;
+            }
+            if(stack.size()==0)
+                return path;
+            curr = stack.back();
+            stack.pop_back();
+            path.push_back(curr);
+            if(curr->val==val)
+                return path;
+        }
+        return path;
     }
     
 //    void printTree(Node *root);
@@ -98,6 +175,9 @@ public:
 //    void printBFTraversal(Node *);
     Node *getRoot(){
         return root;
+    }
+    Node* getBTreeRoot() {
+        return broot;
     }
     int heightOfNode(Node *root);
 //    int depthOfNode(Node *);
@@ -151,7 +231,20 @@ int main(){
         s.addToTree(it);
         s.addToBTree(it);
     }
+    cout << "In Order Traversal of BTree: ";
+    s.printInorderTraversalBTree(s.getBTreeRoot());
+    cout << "Pre Order Traversal of BTree: ";
+    s.printPreorderTraversalBTree(s.getBTreeRoot());
+    cout << "BFS Traversal of BTree: ";
+    s.printBFSBTree(s.getBTreeRoot());
     myq.clear();
-    cout << "LCA of 8 and 14 :" << s.lca(s.searchForNode(1), 8, 14) << endl;;
+    cout << "LCA of 8 and 14 :" << s.lca(s.searchForNode(1), 8, 14) << endl;
+    for(int i = 1;i<14;i++) {
+    	cout << "Path to Node "<< i << ": ";
+    	for(auto it: s.pathToNodeInBTree(i) )
+        	cout << it->val << " ";
+    	cout << endl;
+    }
+//    cout << "LCA (BTREE) of 8 and 14 :" << s.lca(s.searchForNode(1), 8, 14) << endl;;
     return 0;
 }
