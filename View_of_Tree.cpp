@@ -68,7 +68,7 @@ Solution2::printRightView(Node *root) {
     myq.clear();
     myq.push_back(curr);
     int nodecount=0;
-    while((nodecount = (int)myq.size())){
+    while((nodecount = (int)myq.size())){	
         bool not_shown = true;
         while(nodecount) {
             curr = myq.front();

@@ -7,9 +7,16 @@
 //
 
 #include <iostream>
+using namespace std;
+void foo(int x) {
+    while(x){
+        foo(x--);
+    }
+    cout << x;
+}
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    std::cout << "Hello, World!\n";
+    foo(2);
     return 0;
 }

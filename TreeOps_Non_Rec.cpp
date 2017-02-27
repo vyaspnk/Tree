@@ -266,7 +266,7 @@ Solution::sumOfLeafNodes(Node *root) {
         
     }
     cout << "Leaf Nodes (Bottom View) of the Tree: " ;
-    std::sort(leafnodes.begin(),leafnodes.end(),less_than_equal());
+    //std::sort(leafnodes.begin(),leafnodes.end(),less_than_equal());
     for(auto it:leafnodes)
         cout << it->val << " ";
     cout<<endl;
