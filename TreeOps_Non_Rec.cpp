@@ -180,7 +180,7 @@ Solution::printPostOrderTraversal(Node * root) {
             break;
         curr = stack.back();
         stack.pop_back();
-        if(stack.size() && curr->right == stack.back()){
+        if( stack.size() && curr->right == stack.back() ) {
             Node *tmp = curr;
             curr = stack.back();
             stack.pop_back();

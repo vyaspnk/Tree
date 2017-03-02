@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <queue>
+#include <stack>
 using namespace std;
 struct Node {
     int val;
@@ -141,6 +142,31 @@ public:
             stack.pop_back();
         }
         cout << endl;
+    }
+    void printPostOrderTraversal(Node * root) {
+        stack<int> S;
+        if(!root) return;
+        while(1) {
+            while(root) {
+                if(root->right)
+                    S.push(root->right);
+                S.push(root);
+                root = root->left;
+            }
+        	if(S.empty()) return;
+            root = S.top();
+            S.pop();
+            if(S.size() && root->right == S.top()) { //pop top for right node and push the root node
+                auto tmp = S.top();
+                S.pop();
+                S.push(root);
+                root = tmp;
+            } else {
+                cout << root->val << " ";
+                curr = nullptr;
+            }
+        }
+        
     }
     vector<Node *> pathToNodeInBTree(int val){
         vector<Node*> path;
